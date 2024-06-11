@@ -418,7 +418,9 @@ class Actions(Base):
                           duration,
                           filter_vars=None,
                           fixed=None,
-                          trigger_name=None):
+                          all_services=None,
+                          trigger_name=None,
+                          child_options=None):
         '''
         Schedule a downtime for hosts and services.
 
@@ -462,8 +464,13 @@ class Actions(Base):
         :type filter_vars: dict
         :param fixed: fixed or flexible downtime
         :type fixed: bool
+        :param all_services: sets downtime for all services for the matched host
+                             objects (host downtime only)
+        :type all_services: bool
         :param trigger_name: trigger for the downtime
         :type trigger_name: string
+        :param child_options: schedule child downtimes options
+        :type child_options: string
         :returns: the response as json
         :rtype: dictionary
         '''
@@ -483,8 +490,12 @@ class Actions(Base):
             payload['filter_vars'] = filter_vars
         if fixed:
             payload['fixed'] = fixed
+        if all_services:
+            payload['all_services'] = all_services
         if trigger_name:
             payload['trigger_name'] = trigger_name
+        if child_options:
+            payload['child_options'] = child_options
 
         return self._request('POST', url, payload)
 

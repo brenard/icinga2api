@@ -244,7 +244,8 @@ class Actions(Base):
                             filter_vars=None,
                             expiry=None,
                             sticky=None,
-                            notify=None):
+                            notify=None,
+                            persistent=None):
         '''
         Acknowledge a Service or Host problem.
 
@@ -264,6 +265,8 @@ class Actions(Base):
         :type sticky: bool
         :param notify: send notification
         :type notify: string
+        :param persistent: persistent acknowledgement comment
+        :type notify: bool
         :returns: the response as json
         :rtype: dictionary
         '''
@@ -284,6 +287,8 @@ class Actions(Base):
             payload['sticky'] = sticky
         if notify:
             payload['notify'] = notify
+        if persistent:
+            payload['persistent'] = persistent
 
         return self._request('POST', url, payload)
 

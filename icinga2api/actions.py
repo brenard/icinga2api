@@ -344,7 +344,8 @@ class Actions(Base):
                     filters,
                     author,
                     comment,
-                    filter_vars=None):
+                    filter_vars=None,
+                    expiry=None):
         '''
         Add a comment from an author to services or hosts.
 
@@ -364,6 +365,8 @@ class Actions(Base):
         :type comment: string
         :param filter_vars: variables used in the filters expression
         :type filter_vars: dict
+        :param expiry: comment expiry timestamp
+        :type expiry: int
         :returns: the response as json
         :rtype: dictionary
         '''
@@ -378,6 +381,8 @@ class Actions(Base):
         }
         if filter_vars:
             payload['filter_vars'] = filter_vars
+        if expiry:
+            payload['expiry'] = expiry
 
         return self._request('POST', url, payload)
 

@@ -52,7 +52,10 @@ class Actions(Base):
                              plugin_output,
                              performance_data=None,
                              check_command=None,
-                             check_source=None):
+                             check_source=None,
+                             execution_start=None,
+                             execution_end=None,
+                             ttl=None):
         '''
         Process a check result for a host or a service.
 
@@ -69,6 +72,12 @@ class Actions(Base):
         :type check_command: list
         :param check_source: name of the command_endpoint
         :type check_source: string
+        :param execution_start: execution start timestamp
+        :type execution_start: integer
+        :param execution_end: execution end timestamp
+        :type execution_end: integer
+        :param ttl: time-to-live duration in seconds for this check result
+        :type ttl: integer
         :returns: the response as json
         :rtype: dictionary
 
@@ -101,6 +110,12 @@ class Actions(Base):
             payload['check_command'] = check_command
         if check_source:
             payload['check_source'] = check_source
+        if execution_start:
+            payload['execution_start'] = execution_start
+        if execution_end:
+            payload['execution_end'] = execution_end
+        if ttl:
+            payload['ttl'] = ttl
 
         return self._request('POST', url, payload)
 

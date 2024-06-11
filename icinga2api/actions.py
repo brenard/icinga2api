@@ -390,7 +390,8 @@ class Actions(Base):
                        object_type,
                        name,
                        filters,
-                       filter_vars=None):
+                       filter_vars=None,
+                       author=None):
         '''
         Remove a comment using its name or filters.
 
@@ -410,6 +411,8 @@ class Actions(Base):
         :type filters: string
         :param filter_vars: variables used in the filters expression
         :type filter_vars: dict
+        :param author: name of the removal requestor
+        :type author: string
         :returns: the response as json
         :rtype: dictionary
         '''
@@ -425,6 +428,8 @@ class Actions(Base):
             payload['filter'] = filters
         if filter_vars:
             payload['filter_vars'] = filter_vars
+        if author:
+            payload['author'] = author
 
         return self._request('POST', url, payload)
 
